@@ -1,0 +1,49 @@
+DROP TABLE pelitaulu;
+DROP TABLE julkaisijataulu;
+DROP TABLE alustataulu;
+DROP TABLE genretaulu;
+
+
+CREATE TABLE julkaisijataulu (
+julkaisijatauluid INTEGER NOT NULL PRIMARY KEY GENERATED ALWAYS AS IDENTITY  (START WITH 1, INCREMENT BY 1), 
+julkaisija_nimi VARCHAR(40) NOT NULL 
+);
+
+CREATE TABLE genretaulu (
+genretauluid INTEGER NOT NULL PRIMARY KEY GENERATED ALWAYS AS IDENTITY
+        (START WITH 1, INCREMENT BY 1), 
+genre_nimi VARCHAR(30) NOT NULL 
+);
+
+CREATE TABLE alustataulu (
+alustatauluid INTEGER NOT NULL PRIMARY KEY GENERATED ALWAYS AS IDENTITY
+        (START WITH 1, INCREMENT BY 1), 
+alusta_nimi VARCHAR(45) NOT NULL 
+);
+
+CREATE TABLE pelitaulu (
+ peli_id INTEGER NOT NULL PRIMARY KEY GENERATED ALWAYS AS IDENTITY
+        (START WITH 1, INCREMENT BY 1),
+ pelin_nimi VARCHAR(45),
+ genre_id INTEGER NOT NULL,
+ julkaisija_id INTEGER NOT NULL,
+ alusta_id INTEGER NOT NULL,
+ julkaisuvuosi INTEGER NOT NULL,
+ arvosana INT,
+ kuvaus VARCHAR(200),
+ lisaysaika DATE DEFAULT CURRENT_DATE,
+foreign key (genre_id) references genretaulu (genretauluid),
+foreign key (alusta_id) references alustataulu (alustatauluid),
+foreign key (julkaisija_id) references julkaisijataulu (julkaisijatauluid)	
+);
+INSERT INTO ALUSTATAULU (alusta_nimi) VALUES ('PC');
+INSERT INTO GENRETAULU (genre_nimi) VALUES ('RPG');
+INSERT INTO JULKAISIJATAULU  (julkaisija_nimi) VALUES ('Activision');
+INSERT INTO ALUSTATAULU (alusta_nimi) VALUES ('XBOX');
+INSERT INTO GENRETAULU (genre_nimi) VALUES ('MMO');
+INSERT INTO JULKAISIJATAULU  (julkaisija_nimi) VALUES ('Valve');
+INSERT INTO PELITAULU (pelin_nimi, genre_id, julkaisija_id, alusta_id, julkaisuvuosi, arvosana, kuvaus) VALUES ('Pelle seikkailee taas 2', 2, 2, 1, 1871, 5, 'Pelle pelisarjan paras osa, pelintekijät ovat onnistuneet luomaan loistavan pelin');
+
+INSERT INTO PELITAULU (pelin_nimi, genre_id, julkaisija_id, alusta_id, julkaisuvuosi, arvosana, kuvaus) VALUES ('Pelle seikkailee taas 2', 2, 2, 1, 1871, 5, 'Pelle pelisarjan paras osa, pelintekijät ovat onnistuneet luomaan loistavan pelin');
+INSERT INTO PELITAULU (pelin_nimi, genre_id, julkaisija_id, alusta_id, julkaisuvuosi, arvosana, kuvaus) VALUES ('Pelle seikkailee taas 3', 1, 2, 2, 1871, 5, 'Pelle pelisarjan paras osa, pelintekijät ovat onnistuneet luomaan loistavan pelin');
+INSERT INTO PELITAULU (pelin_nimi, genre_id, julkaisija_id, alusta_id, julkaisuvuosi, arvosana, kuvaus) VALUES ('Apinan seikkailut', 1,1,1, 1986, 5, 'Apina');
